@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Manager Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Using Remix Icon for icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Header Area -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="ri-graduation-cap-fill"></i>
+                <h1>Student Manager</h1>
+            </div>
+            <div class="header-actions">
+                <button id="importBtn" class="btn btn-secondary" title="Import CSV">
+                    <i class="ri-upload-2-line"></i> Import
+                </button>
+                <button id="exportBtn" class="btn btn-secondary" title="Export CSV">
+                    <i class="ri-download-2-line"></i> Export
+                </button>
+                <button id="addStudentBtn" class="btn btn-primary">
+                    <i class="ri-add-line"></i> Add Student
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="toolbar">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, roll nr, or course...">
+                </div>
+                <div class="stats">
+                    <span id="totalStudents">0 Students</span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No</th>
+                            <th>Course</th>
+                            <th>Year</th>
+                            <th>CGPA</th>
+                            <th class="actions-col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows will be populated by JS -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state hidden">
+                    <i class="ri-folder-open-line"></i>
+                    <p>No student records found.</p>
+                    <button class="btn btn-text" onclick="document.getElementById('addStudentBtn').click()">Add a new student</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="studentModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Student</h2>
+                <button id="closeModalBtn" class="close-btn"><i class="ri-close-line"></i></button>
+            </div>
+            <form id="studentForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="e.g. John Doe">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roll">Roll Number</label>
+                        <input type="number" id="roll" required placeholder="e.g. 101">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input type="number" id="year" required min="1" max="6" placeholder="e.g. 2">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <input type="text" id="course" required placeholder="e.g. Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="cgpa">CGPA</label>
+                        <input type="number" id="cgpa" required step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+</html>
